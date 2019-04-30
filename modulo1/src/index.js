@@ -5,37 +5,48 @@ import React, {
 import {
   render
 } from 'react-dom'
-import PropTypes from 'prop-types'
 
-class Button extends Component {
-  render(){
-    // children replica tudo o que tem dentro do component
-    return <a onClick={this.props.onClick}>{this.props.children}</a>
-  }
-}
-
-Button.defaultProps = {
-  // quando não passar o children, ele vai ser salvar
-  children: 'Salvar'
-}
-
-Button.propTypes = {
-  // ela é uma função e obrigaroioa
-  onClick: PropTypes.func.isRequired,
-  // ela é uma string
-  children: PropTypes.string
-} 
+import Button from './Button'
 
 class App extends Component {
-  handleClick(){
-    alert('Botão clicado');
+  state = {
+    counter: 0
+  }
+
+  // executa imadiatamente na execução do componente
+  componentDidMount(){
+
+  }
+
+  // é o contratio do didiMount
+  componentWillUnmount(){
+
+  }
+
+  //pode vetar atualização do render
+  // antes de executar o metodo render
+  // retirna true ou false
+  // continua atualizando o estado, mas não renderiza
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.counter < 10
+  }
+
+  // ;executado depois de fazer uma atualização
+  componentDidUpdate(prevProps, preState){
+
+  }
+
+  handleClick = () => {
+    this.setState({
+      counter: this.state.counter+1
+    })
   }
 
   render() {
     return (
       <Fragment>
         <h1>Heloo</h1>
-        <Button onClick={() => { alert('Bt1') }} />
+        <h2>{this.state.counter}</h2>
         <Button onClick={this.handleClick}>Enviado</Button>
       </Fragment>
     )
