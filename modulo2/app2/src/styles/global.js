@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import 'font-awesome/css/font-awesome.css';
+
 /* estilos globais que funcionam em toda a aplicação
  se não for assim o estilo só funciona no componente que ele esta seno utilizado */
 const GlobalStyle = createGlobalStyle`

@@ -1,20 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-const Button = (props) => (
-    <button onClick={props.onClick}>{props.children}</button>
+const Button = props => (
+  <button onClick={props.onClick}>{props.children}</button>
 );
 
 Button.defaultProps = {
-    // quando não passar o children, ele vai ser salvar
-    children: 'Salvar'
-}
+  // quando não passar o children, ele vai ser salvar
+  children: "Salvar"
+};
 
 Button.propTypes = {
-    // ela é uma função e obrigaroioa
-    onClick: PropTypes.func.isRequired,
-    // ela é uma string
-    children: PropTypes.string
-} 
-  
-export default Button
+  // ela é uma função e obrigaroioa
+  onClick: PropTypes.func.isRequired,
+  // ela é uma string
+  children: PropTypes.string
+};
+
+export default Button;
