@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Container, Repository } from './styles';
 
-const CompareList = ({ repositories }) => (
+const CompareList = ({
+  update, remove, repositories,
+}) => (
   <Container>
     {repositories.map(repository => (
       <Repository key={repository.id}>
@@ -15,21 +17,25 @@ const CompareList = ({ repositories }) => (
         <ul>
           <li>
             {repository.stargazers_count}
-            <strong>stars</strong>
+            <strong> stars</strong>
           </li>
           <li>
             {repository.forks_count}
-            <strong>forks</strong>
+            <strong> forks</strong>
           </li>
           <li>
             {repository.open_issues_count}
-            <strong>issues</strong>
+            <strong> issues</strong>
           </li>
           <li>
             {repository.lastCommit}
-            <strong>last commit</strong>
+            <strong> last commit</strong>
           </li>
         </ul>
+        <div className="button-container">
+          <button type="button" className="update" onClick={() => update(repository.id)}>Atualizar</button>
+          <button type="button" className="remove" onClick={() => remove(repository.id)}>Remover</button>
+        </div>
       </Repository>
     ))}
   </Container>

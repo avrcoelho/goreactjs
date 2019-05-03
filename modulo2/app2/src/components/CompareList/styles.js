@@ -13,7 +13,7 @@ export const Repository = styled.div`
      border-radius: 3px;
      display:flex;
      flex-direction: column;
-     margin: 0 10px;
+     margin: 0 10px 50px 10px;
 
      header {
          padding: 30px;
@@ -53,6 +53,48 @@ export const Repository = styled.div`
              &:nth-child(2n -1 ) {
                  background: #f5f5f5;
              }
+         }
+     }
+
+     .button-container {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+
+         .update {
+            height: 30px;
+            width: 120px;
+            margin-bottom: 15px;
+            padding: 0 20px;
+            background: #6382f5;
+            color: #fff;
+            font-size: 15px;
+            border: 0;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+
+            &:hover {
+                background: #3e64f3;
+            }
+         }
+         .remove {
+            height: 30px;
+            width: 120px;
+            margin-bottom: 15px;
+            padding: 0 20px;
+            background: #f56363;
+            color: #fff;
+            font-size: 15px;
+            border: 0;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+
+            &:hover {
+                background: #f74c4c;
+            }
          }
      }
  `;
