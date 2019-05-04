@@ -3,10 +3,12 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 
+import TodoList from './TodoList';
+
 const App = () => (
   // provider da acesso aos stores contidos na aplicação
   <Provider store={store}>
-    <h1>Hello Wolrd</h1>
+    <TodoList />
   </Provider>
 );
 
