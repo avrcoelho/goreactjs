@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 
 // connect vai conectar o componente com informação do estado do redux
 import { connect } from 'react-redux';
+// bindActionCreators: ele vai aplicar o dispach em cada uma das funções do actions
+import { bindActionCreators } from 'redux';
+
+import * as TodoActions from './store/actions/todos';
 
 // passou as props por desentruturação
-const TodoList = ({ todos, addTodo }) => (
+const TodoList = ({ todos, addTodo, removeTodo }) => (
   <Fragment>
     <ul>
       {todos.map(todo => (
-        <li key={todo.id}>{todo.text}</li>
+        <li key={todo.id}>
+          {todo.text}
+          {' '}
+          <button type="button" onClick={() => removeTodo(todo.id)}>
+            Remover
+          </button>
+        </li>
       ))}
     </ul>
     <button type="button" onClick={() => addTodo('Bora codar')}>
@@ -20,6 +30,7 @@ const TodoList = ({ todos, addTodo }) => (
 
 TodoList.propTypes = {
   addTodo: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -38,16 +49,9 @@ const mapStateToProps = state => ({
 
 // é como se fosse a action
 // tranforma a action em propriedades do component
-const mapDispatchToProps = dispatch => ({
-  // recebe o texto e retorna os dados para a aplicação, os reducers
-  // tudo o que tiver dento da função "dispatch" é o que o reducers vão ouvir
-  addTodo: text => dispatch({
-    // type: é um propriedae obrigatória dentro de cada action. é aquilo que vai determinar qual ação esta sendo feita
-    // é obrigação parsar toda informação dentro do payload
-    type: 'ADD_TODO',
-    payload: { text },
-  }),
-});
+// recebe o texto e retorna os dados para a aplicação, os reducers
+// tudo o que tiver dento da função "dispatch" é o que o reducers vão ouvir
+const mapDispatchToProps = dispatch => bindActionCreators(TodoActions, dispatch);
 
 // Higher-Order Components
 export default connect(

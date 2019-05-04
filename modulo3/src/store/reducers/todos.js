@@ -20,6 +20,8 @@ export default function todos(state = INITIAL_STATE, action) {
       // como o id não vem do front, vamos gerar um qualquer
       // aqui o state é alterado
       return [...state, { id: Math.random(), text: action.payload.text }];
+    case 'REMOVE_TODO':
+      return state.filter(todo => todo.id !== action.payload.id);
     default:
       // caso nada for alterado retorna isso
       return state;
