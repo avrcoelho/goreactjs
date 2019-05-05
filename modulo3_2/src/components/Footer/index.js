@@ -18,7 +18,7 @@ Footer.propTypes = {
 const mapStateToProps = state => ({
   // faça a logica aqui, caso não tenha conseguido fazer dentro do redux
   // não faça lógica no render
-  count: state.favorites.length,
+  count: state.favorites.data.length,
 });
 
 export default connect(mapStateToProps)(Footer);
