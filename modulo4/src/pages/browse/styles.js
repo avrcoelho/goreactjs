@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+// vai deixar aqui, pois invés de utilizar a tag A, vai ser estilizado o Link
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   flex: 1;
@@ -14,19 +16,19 @@ export const Title = styled.h1`
 
 export const List = styled.div`
   margin-top: 20px;
-  display:flex;
+  display: flex;
 `;
 
-export const Playlist = styled.a`
- display:flex;
- flex-direction: column;
- color: #fff;
- margin-left: 20px;
- width: 200px;
- text-decoration: none;
+export const Playlist = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  margin-left: 20px;
+  width: 200px;
+  text-decoration: none;
 
- img {
-   height: 200px;
+  img {
+    height: 200px;
   }
 
   strong {
@@ -42,10 +44,10 @@ export const Playlist = styled.a`
   }
 
   &:hover img {
-    opacity: 0.4
+    opacity: 0.4;
   }
 
- &:first-child {
-   margin: 0;
- }
+  &:first-child {
+    margin: 0;
+  }
 `;
