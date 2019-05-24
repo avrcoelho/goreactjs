@@ -1,56 +1,59 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as PlaylistsActions } from '../../store/ducks/playlists';
 
 import {
   Container, Title, List, Playlist,
 } from './styles';
 
-const Browse = () => (
-  <Container>
-    <Title>Navegar</Title>
+class Browse extends Component {
+  static propTypes = {
+    getPlaylistsRequest: PropTypes.func.isRequired,
+    playlists: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+        thumbnail: PropTypes.string,
+        description: PropTypes.string,
+      }))
+    }).isRequired
+  }
 
-    <List>
-      <Playlist to="/playlists/1">
-        <img
-          src="https://www.vnews.com/getattachment/58d78dc1-bfe3-4c7b-aaef-6fa0ce1a223b/e4-MUS-LinkinPark-ls-vn-xxxxxxx-ph01"
-          alt="Album"
-        />
-        <strong>Linkin Park</strong>
-        <p>Melhor banda de rock de todos os tempos</p>
-      </Playlist>
-      <Playlist to="/playlists/1">
-        <img
-          src="https://www.vnews.com/getattachment/58d78dc1-bfe3-4c7b-aaef-6fa0ce1a223b/e4-MUS-LinkinPark-ls-vn-xxxxxxx-ph01"
-          alt="Album"
-        />
-        <strong>Linkin Park</strong>
-        <p>Melhor banda de rock de todos os tempos</p>
-      </Playlist>
-      <Playlist to="/playlists/1">
-        <img
-          src="https://www.vnews.com/getattachment/58d78dc1-bfe3-4c7b-aaef-6fa0ce1a223b/e4-MUS-LinkinPark-ls-vn-xxxxxxx-ph01"
-          alt="Album"
-        />
-        <strong>Linkin Park</strong>
-        <p>Melhor banda de rock de todos os tempos</p>
-      </Playlist>
-      <Playlist to="/playlists/1">
-        <img
-          src="https://www.vnews.com/getattachment/58d78dc1-bfe3-4c7b-aaef-6fa0ce1a223b/e4-MUS-LinkinPark-ls-vn-xxxxxxx-ph01"
-          alt="Album"
-        />
-        <strong>Linkin Park</strong>
-        <p>Melhor banda de rock de todos os tempos</p>
-      </Playlist>
-      <Playlist to="/playlists/1">
-        <img
-          src="https://www.vnews.com/getattachment/58d78dc1-bfe3-4c7b-aaef-6fa0ce1a223b/e4-MUS-LinkinPark-ls-vn-xxxxxxx-ph01"
-          alt="Album"
-        />
-        <strong>Linkin Park</strong>
-        <p>Melhor banda de rock de todos os tempos</p>
-      </Playlist>
-    </List>
-  </Container>
-);
+   // disparado assim que o component é renderizado em tela
+   componentDidMount() {
+    // dispara a action do playlists actions, pois ela vai chamar o saga
+    this.props.getPlaylistsRequest();
+  }
 
-export default Browse;
+  render() {
+    return (
+      <Container>
+        <Title>Navegar</Title>
+
+        <List>
+          {this.props.playlists.data.map(playlist => (
+          <Playlist key={playlist.id} to={`playlists/${playlist.id}`}>
+            <img
+              src={playlist.thumbnail}
+              alt={playlist.title}
+            />
+            <strong>{playlist.title}</strong>
+            <p>{playlist.description}</p>
+          </Playlist>
+        ))}
+        </List>
+      </Container>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  playlists: state.playlists,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(PlaylistsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Browse);

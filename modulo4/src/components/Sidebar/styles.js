@@ -9,6 +9,7 @@ export const Container = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: auto;
 
   /* estilizar a primeira div dentor dele */
   > div {
