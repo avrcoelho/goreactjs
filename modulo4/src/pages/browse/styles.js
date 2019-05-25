@@ -2,6 +2,8 @@ import styled from 'styled-components';
 // vai deixar aqui, pois invés de utilizar a tag A, vai ser estilizado o Link
 import { Link } from 'react-router-dom';
 
+import { Spinner } from '../../components/Loading/styles';
+
 export const Container = styled.div`
   flex: 1;
   margin-top: 50px;
@@ -11,7 +13,10 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   font-size: 48px;
-  color: #fff;
+
+  ${Spinner} {
+    height: 24px;
+  }
 `;
 
 export const List = styled.div`
