@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Slider from 'rc-slider';
+// oo Sound pode ser coloca em qualquer local do jsx, pois ele não é visual
+import Sound from 'react-sound';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   Container, Currency, Volume, Progress, Controls, Time, ProgressSlider,
@@ -13,17 +17,22 @@ import PauseIcon from '../../assets/images/pause.svg';
 import ForwardIcon from '../../assets/images/forward.svg';
 import RepeatIcon from '../../assets/images/repeat.svg';
 
-const Player = () => (
+const Player = ({ player }) => (
   <Container>
+    {!!player.currentSong && <Sound url={player.currentSong.file} playStatus={player.status} />}
     <Currency>
-      <img
-        src="https://www.vnews.com/getattachment/58d78dc1-bfe3-4c7b-aaef-6fa0ce1a223b/e4-MUS-LinkinPark-ls-vn-xxxxxxx-ph01"
-        alt="Album"
-      />
-      <div>
-        <span>Times like these</span>
-        <small>Linkin Park</small>
-      </div>
+      {!!player.currentSong && (
+        <Fragment>
+          <img
+            src={player.currentSong.thumbnail}
+            alt={player.currentSong.title}
+          />
+          <div>
+            <span>{player.currentSong.title}</span>
+            <small>{player.currentSong.author}</small>
+          </div>
+        </Fragment>
+      )}
     </Currency>
 
     <Progress>
@@ -70,4 +79,20 @@ const Player = () => (
   </Container>
 );
 
-export default Player;
+Player.propTypes = {
+  player: PropTypes.shape({
+    currentSong: PropTypes.shape({
+      file: PropTypes.string,
+      thumbnail: PropTypes.string,
+      title: PropTypes.string,
+      author: PropTypes.string,
+    }),
+    status: PropTypes.string,
+  }).isRequired,
+};
+
+const mapStateToProps = state => ({
+  player: state.player,
+});
+
+export default connect(mapStateToProps)(Player);

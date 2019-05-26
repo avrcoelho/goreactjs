@@ -12,6 +12,7 @@ export const Container = styled.div`
 export const Currency = styled.div`
   display: flex;
   align-items: center;
+  width: 220px;
 
   img {
     height: 48px;
